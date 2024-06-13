@@ -3,5 +3,6 @@ venv/
 .idea/
 __pycache__/
 .git/
-/.env
+.env
+!./deploy/.env
 .DS_Store
