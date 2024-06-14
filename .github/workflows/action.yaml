@@ -52,6 +52,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "deploy/nginx.conf"
+          source: "deploy/"
           target: "todolist"
           strip_components: 1
