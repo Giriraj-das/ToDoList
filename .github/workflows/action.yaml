@@ -40,6 +40,8 @@ jobs:
         with:
           vault_key: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
           command: "ansible-vault decrypt deploy/.env"
+      - name: Check rights
+        run: ls -la deploy/.env
       - name: Update docker-compose
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -52,6 +54,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "deploy/"
+          source: "deploy/*"
           target: "todolist"
           strip_components: 1
