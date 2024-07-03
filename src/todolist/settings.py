@@ -31,9 +31,9 @@ environ.Env.read_env(BASE_DIR.joinpath('.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    #'social_django',
     'core',
 ]
 
@@ -128,7 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR.joinpath('static')
 
 AUTH_USER_MODEL = 'core.User'
@@ -137,3 +139,29 @@ AUTH_USER_MODEL = 'core.User'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            # Logging handler that outputs log messages to terminal
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",  # Message level to be written to console
+        },
+    },
+    "loggers": {
+        "": {
+            # This sets root level logger to log debug and higher level logs to console.
+            # All other loggers inherit settings from root level logger.
+            "handlers": ["console"],
+            "level": 'DEBUG',
+            "propagate": False,  # This tells logger to send logging message to its parent (will send if set to True)
+        },
+        "django.db": {
+            # Django also has database level logging
+            "level": "DEBUG",
+        },
+    },
+}
