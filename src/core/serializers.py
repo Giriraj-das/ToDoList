@@ -61,8 +61,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UpdatePasswordSerializer(serializers.Serializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    old_password = PasswordField()
-    new_password = PasswordField()
+    old_password = PasswordField(required=True)
+    new_password = PasswordField(required=True)
 
     def validate(self, attrs: dict):
         user = self.context['request'].user
